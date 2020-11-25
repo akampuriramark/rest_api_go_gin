@@ -1,7 +1,8 @@
 package handler
 
 import (
-	"fmt"
+	"gorestapimysql/src/config"
+	"gorestapimysql/src/entities"
 	"gorestapimysql/src/models"
 	"net/http"
 
@@ -32,9 +33,26 @@ func TransactionGet(context *gin.Context) {
 	// 		// },
 	// 	},
 	// }
-	results, err := models.DBH.GetTransactions()
-	if err != nil {
-		fmt.Println(err)
+	db, errr := config.GetDB()
+	if errr != nil {
+		respError := entities.Error{
+			StatusCode:        100,
+			StatusDescription: errr.Error(),
+		}
+		context.JSON(http.StatusBadRequest, respError)
+	} else {
+		transDb := models.DbHandler{
+			Db: db,
+		}
+		results, erra := transDb.GetTransactions()
+		if erra != nil {
+			respError := entities.Error{
+				StatusCode:        100,
+				StatusDescription: erra.Error(),
+			}
+			context.JSON(http.StatusBadRequest, respError)
+		} else {
+			context.JSON(http.StatusOK, results)
+		}
 	}
-	context.JSON(http.StatusOK, results)
 }

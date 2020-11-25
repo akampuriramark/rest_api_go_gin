@@ -1,7 +1,6 @@
 package api
 
 import (
-	"gorestapimysql/src/config"
 	"gorestapimysql/src/handler"
 
 	"github.com/gin-gonic/gin"
@@ -11,7 +10,6 @@ import (
 func Run() {
 	// gin.ForceConsoleColor()
 	router := gin.New()
-	config.SetDB()
 	// use custom logger
 	router.Use(gin.LoggerWithFormatter(handler.Log))
 	router.Use(gin.Recovery())
