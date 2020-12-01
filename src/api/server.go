@@ -13,6 +13,7 @@ func Run() {
 	// use custom logger
 	router.Use(gin.LoggerWithFormatter(handler.Log))
 	router.Use(gin.Recovery())
-	router.GET("/transactions", handler.TransactionGet)
+	router.GET("/transactions", handler.TransactionGet())
+	router.POST("/transactions", handler.TransactionPost())
 	router.Run()
 }

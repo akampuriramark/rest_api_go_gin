@@ -12,7 +12,7 @@ func GetDB() (*sql.DB, error) {
 	dbUser := "root"
 	dbPass := "T3rr1613"
 	dbName := "netcoreapidb"
-	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
+	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName+"?parseTime=true")
 	return db, err
 }
 
